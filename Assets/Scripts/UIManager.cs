@@ -46,5 +46,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ButtonClick()
+    {
+        SoundManager.Instance.PlayAudio("buttonclick");
+    }
 }
 #pragma warning restore 0649

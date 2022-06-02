@@ -18,9 +18,9 @@ public class CameraFollow : MonoBehaviour
     {
         if (target)
         {
-            if (target.position.x + 7 > transform.position.x)
+            if (target.position.x + 5.5f > transform.position.x)
             {
-                transform.position = new Vector3(target.position.x + 7, transform.position.y, transform.position.z);
+                transform.position = new Vector3(target.position.x + 5.5f, transform.position.y, transform.position.z);
             }
         }
     }

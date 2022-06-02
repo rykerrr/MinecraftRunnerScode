@@ -29,11 +29,6 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isMoving", false);
     }
 
-    private void Update()
-    {
-
-    }
-
     private void FixedUpdate()
     {
         if (RoguePlatformManager.Instance.GameStarted)
@@ -48,11 +43,12 @@ public class PlayerController : MonoBehaviour
                 myRb.velocity = Vector2.right * speedMult * Time.deltaTime;
                 anim.SetBool("isMoving", true);
 
-                if (transform.position.x >= newPos.x + 0.3f)
+                if (transform.position.x >= newPos.x + 0.5f)
                 {
                     anim.SetBool("isMoving", false);
                     myRb.velocity = new Vector2(0, myRb.velocity.y);
                     CanStop = true;
+                    IsMoving = false;
                     bridgeController.WaitBeforeBridge();
                 }
             }

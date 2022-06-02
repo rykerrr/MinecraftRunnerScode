@@ -54,6 +54,7 @@ public class RoguePlatformManager : MonoBehaviour
     [SerializeField] private GameObject endGameScreen;
     [SerializeField] private PlayerController plrContrll;
     [SerializeField] private ColorTransitionManager colorManager;
+    [SerializeField] private LavaPlatformController lavaPlatContrll;
 
     [SerializeField] private float yLimit;
     [SerializeField] private float offsetMin = 1f;
@@ -64,6 +65,7 @@ public class RoguePlatformManager : MonoBehaviour
 
     private void Start()
     {
+        lavaPlatContrll.Init();
         TimeLeft = roundTime;
         timer = Time.time + 1;
     }
@@ -96,6 +98,12 @@ public class RoguePlatformManager : MonoBehaviour
                         TimeLeft--;
                         timer = Time.time + 1;
                     }
+
+                    lavaPlatContrll.Tick();
+                }
+                else
+                {
+                    lavaPlatContrll.ReverseTick();
                 }
             }
         }
@@ -125,7 +133,7 @@ public class RoguePlatformManager : MonoBehaviour
         }
 
         float offset = Random.Range(offsetMin, offsetMax);
-        Vector3 newPos = new Vector3(plrContrll.plats[plrContrll.plats.Count - 1].position.x + offset, 0f, 0f);
+        Vector3 newPos = new Vector3(plrContrll.plats[plrContrll.plats.Count - 1].position.x + offset, 1.42f, 0f);
         Transform newPlat = Instantiate(platformPrefabs[pref], new Vector3(Random.Range(newPos.x - 2f, newPos.x + 6f), newPos.y, newPos.z), Quaternion.identity);
 
         newPlat.localScale = new Vector3(Random.Range(platformPrefabs[pref].localScale.x / 1.4f, platformPrefabs[pref].localScale.x * 1.2f), platformPrefabs[pref].localScale.y, platformPrefabs[pref].localScale.z);
@@ -140,7 +148,7 @@ public class RoguePlatformManager : MonoBehaviour
 
             if (zombChance > 40)
             {
-                Transform newZomb = Instantiate(zombiePrefab, new Vector3(Random.Range(newPlat.transform.position.x - newPlat.transform.localScale.x / 2.2f, newPlat.transform.position.x + newPlat.transform.localScale.x / 2.2f), 1.4f, 0f)
+                Transform newZomb = Instantiate(zombiePrefab, new Vector3(Random.Range(newPlat.transform.position.x - newPlat.transform.localScale.x / 2.2f, newPlat.transform.position.x + newPlat.transform.localScale.x / 2.2f), 3.3f, 0f)
                         , Quaternion.identity);
             }
             else
@@ -149,7 +157,7 @@ public class RoguePlatformManager : MonoBehaviour
 
                 if (skeleChance < 46)
                 {
-                    Transform newSkele = Instantiate(skelePrefab, new Vector3(Random.Range(newPlat.transform.position.x - newPlat.transform.localScale.x / 2.2f, newPlat.transform.position.x + newPlat.transform.localScale.x / 2.2f), 1.4f, 0f)
+                    Transform newSkele = Instantiate(skelePrefab, new Vector3(Random.Range(newPlat.transform.position.x - newPlat.transform.localScale.x / 2.2f, newPlat.transform.position.x + newPlat.transform.localScale.x / 2.2f), 3.3f, 0f)
                         , Quaternion.identity);
                 }
             }

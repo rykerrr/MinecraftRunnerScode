@@ -5,6 +5,7 @@ using UnityEngine;
 #pragma warning disable 0649
 public class BridgeController : MonoBehaviour
 {
+    [SerializeField] private LayerMask whatIsArrow;
     [SerializeField] private LayerMask groundCheckLayermask;
     [SerializeField] private LayerMask platMask;
     [SerializeField] private PlayerController plrController;
@@ -44,6 +45,16 @@ public class BridgeController : MonoBehaviour
             {
                 if (wasButtonHeld)
                 {
+                    Collider2D[] arrows = Physics2D.OverlapCircleAll(bridgeEnd.position, 2f, whatIsArrow);
+
+                    if(arrows.Length > 0)
+                    {
+                        foreach(Collider2D arrow in arrows)
+                        {
+                            Destroy(arrow);
+                        }
+                    }
+
                     Collider2D checkForMovPlat = Physics2D.OverlapCircle(bridgeEnd.position, 0.4f, platMask);
                     rotating = true;
                     Vector3 rotVector = new Vector3(0f, 0f, Mathf.SmoothDamp(bridge.parent.localEulerAngles.z, -90f, ref smDampVelocity, bridgeFallSmoothTime));
@@ -93,7 +104,7 @@ public class BridgeController : MonoBehaviour
 
     private void Expand()
     {
-        Vector3 addVector = new Vector3(0f, (Mathf.Log(RoguePlatformManager.Instance.Score + 3, 2) / 100f) * 2f, 0f); // 0.09f currently
+        Vector3 addVector = new Vector3(0f, (Mathf.Log(RoguePlatformManager.Instance.Score + 3, 2) / 100f) * 2.6f, 0f); // 0.09f currently
         bridgeEnd.localPosition = new Vector3(0f, (bridge.localScale.y + addVector.y), 0f);
         bridge.localScale += addVector;
         bridge.localPosition += addVector / 2;
@@ -117,7 +128,7 @@ public class BridgeController : MonoBehaviour
     private void BridgeDropped()
     {
         wasButtonHeld = false;
-        Transform newBrDebris = Instantiate(bridge, new Vector3(bridge.position.x, 0.90f, 0f), Quaternion.Euler(new Vector3(0f, 0f, -90f)));
+        Transform newBrDebris = Instantiate(bridge, new Vector3(bridge.position.x, 2.3f, 1f), Quaternion.Euler(new Vector3(0f, 0f, -90f)));
         newBrDebris.GetComponent<Collider2D>().isTrigger = false;
 
         Destroy(newBrDebris.GetComponent<BridgeController>());

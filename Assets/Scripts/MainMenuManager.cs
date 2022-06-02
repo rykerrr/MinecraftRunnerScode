@@ -38,5 +38,10 @@ public class MainMenuManager : MonoBehaviour
             SceneManager.LoadScene("GameScene");
         }
     }
+
+    public void ButtonClick()
+    {
+        SoundManager.Instance.PlayAudio("buttonclick");
+    }
 }
 #pragma warning restore 0649
