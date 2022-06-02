@@ -24,19 +24,14 @@ public class MainMenuManager : MonoBehaviour
     public void ExitGame()
     {
         // add ads here <evil smiley face>
-        if ((AdsManager.Instance.ShowRewardedAd((sr) => Application.Quit())) == false)
-        {
             Application.Quit();
-        }
     }
 
     public void StartGame()
     {
         // add an ad here
-        if (AdsManager.Instance.ShowRewardedAd((sr) => SceneManager.LoadScene("GameScene")) == false)
-        {
+
             SceneManager.LoadScene("GameScene");
-        }
     }
 
     public void ButtonClick()

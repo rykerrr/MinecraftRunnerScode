@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -33,7 +35,7 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private Sound[] sounds;
+    private List<Sound> sounds;
 
     protected void Awake()
     {
@@ -41,22 +43,39 @@ public class SoundManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             instance = this;
+
+            sounds = Resources.LoadAll<AudioSource>("Audio/Sources").Select(x => new Sound()
+            {
+                clip = x.clip,
+                looping = x.loop,
+                name = x.name,
+                pitch = x.pitch,
+                source = null,
+                volume = x.volume
+            }).ToList();
+            
+            Debug.Log(sounds.Count);
+            sounds.ForEach(Debug.Log);
         }
 
         foreach (Sound s in sounds)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
+            s.source = new GameObject(s.name).AddComponent<AudioSource>();
             s.source.clip = s.clip;
 
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.looping;
+            
+            s.source.transform.SetParent(transform);
         }
 
     }
 
     public void PlayAudio(string soundName)
     {
+        Debug.Log("being asked 2 play dis");
+        
         Sound s = null;
 
         foreach(Sound sound in sounds)

@@ -181,18 +181,12 @@ public class RoguePlatformManager : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        if (AdsManager.Instance.ShowRewardedAd((sr) => { SceneManager.LoadScene("MainMenu"); SetHighscoreIfPossible(); }) == false)
-        {
             SceneManager.LoadScene("MainMenu");
-        }
     }
 
     public void RestartGame()
     {
-        if (AdsManager.Instance.ShowRegularAd((sr) => { SceneManager.LoadScene(SceneManager.GetActiveScene().name); SetHighscoreIfPossible(); }) == false)
-        {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
     }
 
     private void OnApplicationQuit()

@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 #pragma warning disable 0649
 [System.Serializable]
-class Sound
+public class Sound
 {
     public string name;
 

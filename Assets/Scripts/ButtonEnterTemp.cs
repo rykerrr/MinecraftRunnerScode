@@ -9,8 +9,6 @@ public class ButtonEnterTemp : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         gameObject.SetActive(true);
-        Debug.Log(gameObject.activeInHierarchy);
-        Debug.Log(gameObject.activeSelf);
     }
 
     public void OnPointerClick(PointerEventData data)

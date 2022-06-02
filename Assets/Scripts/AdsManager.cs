@@ -11,6 +11,8 @@ public class AdsManager : MonoBehaviour // literally the "manager", plays ads an
     {
         get
         {
+            return null;
+            
             if (instance == null)
             {
                 instance = FindObjectOfType<AdsManager>();
